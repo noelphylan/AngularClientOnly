@@ -1,0 +1,22 @@
+<app-page-header></app-page-header>
+
+<app-captcha *ngIf="!captchaAccepted" (outputCaptchaConfirmed)="captchaAccepted = true;"></app-captcha>
+<app-capben-terms *ngIf="captchaAccepted && !termsAccepted" (outputAcceptedTerms)="termsAccepted = true;"></app-capben-terms>
+
+<div class="container-xl pl-0 pr-0 pb-5 mb-5" *ngIf="captchaAccepted && termsAccepted" [ngClass]="{'no-print': isModalOpen}">
+    <app-capben-header (outputSelectedYear)="shareSelectedYear = $event"></app-capben-header>
+    <div class="row m-0">
+        <div class="col-12 col-md-4 mb-3" id="capben-filter">
+            <app-capben-filter (outputGroupFilters)="shareGroupFilters = $event"
+                [inputSelectedYear]="shareSelectedYear"></app-capben-filter>
+        </div>
+        <div class="col-12 col-md-8" id="capben-results">
+            <app-capben-list *ngIf="captchaAccepted" [inputGroupFilters]="shareGroupFilters"
+                [inputSelectedYear]="shareSelectedYear" (outputIsModalOpen)="isModalOpen = $event"></app-capben-list>
+        </div>
+    </div>
+</div>
+
+<app-scroll-top></app-scroll-top>
+
+<app-page-footer></app-page-footer>
