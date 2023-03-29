@@ -11,7 +11,7 @@ RUN npm run build --prod
 FROM nginx:1.17.1-alpine
 FROM nginxinc/nginx-unprivileged
 #### copy nginx conf
-COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-step /app/docs /usr/share/nginx/html
 #### don't know what this is, but seems cool and techy
 CMD ["nginx", "-g", "daemon off;"]
